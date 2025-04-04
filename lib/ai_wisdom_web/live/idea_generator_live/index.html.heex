@@ -1,0 +1,102 @@
+<div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 font-mono">
+  <!-- Container principal com efeito de neon -->
+  <div class="max-w-3xl mx-auto p-8 bg-gray-800 rounded-2xl shadow-2xl border-2 border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-500">
+    <!-- Título com efeito de texto brilhante -->
+    <h1 class="text-4xl font-extrabold text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 animate-pulse">
+      GERADOR DE IDEIAS PARA PROJETOS
+    </h1>
+
+    <!-- Formulário com efeito de terminal -->
+    <div class="mb-10 p-6 bg-gray-900 rounded-xl border border-cyan-400/10 hover:border-cyan-400/30 transition-all duration-300">
+      <.form for={@form} phx-submit="generate" class="space-y-6">
+        <div class="flex gap-4">
+          <!-- Input com estilo de terminal -->
+          <div class="flex-1 relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-cyan-400">
+              >_
+            </div>
+            <input
+              type="text"
+              name="topic"
+              value={@topic}
+              placeholder="Ex: IA, blockchain, realidade virtual..."
+              class="w-full pl-10 pr-4 py-3 bg-gray-800 text-cyan-100 border border-cyan-400/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent placeholder-cyan-400/50"
+              required
+            />
+          </div>
+          
+          <!-- Botão com efeito de energia -->
+          <button
+            type="submit"
+            class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 disabled:opacity-50 disabled:cursor-not-allowed group"
+            disabled={@loading}
+            phx-disable-with="PROCESSANDO..."
+          >
+            <div class="flex items-center gap-2">
+              <%= if @loading do %>
+                <!-- Animação de loading futurista -->
+                <div class="flex space-x-1">
+                  <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                  <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                  <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+                <span>DECODIFICANDO...</span>
+              <% else %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>INICIAR SISTEMA</span>
+              <% end %>
+            </div>
+          </button>
+        </div>
+      </.form>
+    </div>
+
+    <!-- Resultados com estilo de interface holográfica -->
+    <div class="space-y-8">
+      <%= if @ideas do %>
+        <div class="p-6 bg-gray-900/50 rounded-xl border border-purple-400/20 backdrop-blur-sm">
+          <h2 class="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+            💾 RESULTADOS PARA: <span class="text-cyan-300"><%= String.upcase(@topic) %></span>
+          </h2>
+          
+          <div class="prose prose-invert max-w-none">
+            <div class="space-y-6 p-4 bg-gray-800/50 rounded-lg border-l-4 border-cyan-400 glow text-white">
+              <%= raw(@ideas |> String.replace("\n", "<br/><br/>")) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%= if @error && @error != "" do %>
+        <div class="p-4 bg-red-900/50 text-red-300 rounded-lg border border-red-500/30 animate-pulse">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span class="font-bold">ERRO NO SISTEMA:</span> <%= @error %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Efeitos globais -->
+<style>
+  .glow {
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+  }
+  input::selection {
+    background: #06b6d4;
+    color: black;
+  }
+  .animate-bounce {
+    animation: bounce 1.5s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+</style>
