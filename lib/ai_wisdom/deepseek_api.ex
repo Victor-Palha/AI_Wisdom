@@ -3,7 +3,7 @@ defmodule AiWisdom.DeepseekApi do
 
   def generate_ideas(topic) do
     api_key = Application.get_env(:ai_wisdom, :deepseek)[:api_key] || raise "DEEPSEEK_API_KEY não configurada"
-    # api_key = "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"
+
     headers = [
       {"Authorization", "Bearer #{api_key}"},
       {"Content-Type", "application/json"}
