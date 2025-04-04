@@ -7,6 +7,13 @@ import Config
 # before starting your production server.
 config :ai_wisdom, AiWisdomWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :ai_wisdom, AiWisdomWeb.Endpoint,
+  url: [host: "ai-wisdom.onrender.com", port: 443],
+  http: [
+    port: String.to_integer(System.get_env("PORT") || "4000"),
+    transport_options: [socket_opts: [:inet6]]
+  ],
+  check_origin: ["//ai-wisdom.onrender.com", "//*.render.com"]
 # Do not print debug messages in production
 config :logger, level: :info
 
