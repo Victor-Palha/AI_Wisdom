@@ -36,6 +36,8 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
+  config :phoenix, :long_poll_timeout, 45_000
+
   config :ai_wisdom, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :ai_wisdom, :deepseek, api_key: System.get_env("DEEPSEEK_API_KEY")
