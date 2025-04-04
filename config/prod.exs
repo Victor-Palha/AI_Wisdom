@@ -10,7 +10,7 @@ config :ai_wisdom, AiWisdomWeb.Endpoint, cache_static_manifest: "priv/static/cac
 config :ai_wisdom, AiWisdomWeb.Endpoint,
   url: [host: "ai-wisdom.onrender.com", port: 443],
   http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
+    port: String.to_integer(System.get_env("PORT") || "4001"),
     transport_options: [socket_opts: [:inet6]]
   ],
   check_origin: ["//ai-wisdom.onrender.com", "//*.render.com"]
