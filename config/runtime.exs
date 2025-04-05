@@ -33,7 +33,7 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "https://ai-wisdom.onrender.com"
+  host = System.get_env("PHX_HOST") || "ai-wisdom.onrender.com"
   port = String.to_integer(System.get_env("PORT") || "4001")
 
   config :ai_wisdom, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
@@ -42,6 +42,11 @@ if config_env() == :prod do
 
   config :ai_wisdom, AiWisdomWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
+    check_origin: [
+      "https://#{host}",
+      "//#{host}",
+      "//*.render.com"
+    ],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

@@ -7,6 +7,7 @@ import Config
 # before starting your production server.
 config :ai_wisdom, AiWisdomWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :phoenix, :long_poll_timeout, 45_000
 # Do not print debug messages in production
 config :logger, level: :info
 
