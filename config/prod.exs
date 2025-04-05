@@ -8,6 +8,10 @@ import Config
 config :ai_wisdom, AiWisdomWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :phoenix, :long_poll_timeout, 45_000
+
+config :ai_wisdom, :deepseek,
+  api_key: System.get_env("DEEPSEEK_API_KEY")
+
 # Do not print debug messages in production
 config :logger, level: :info
 
